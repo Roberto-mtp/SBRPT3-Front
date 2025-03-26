@@ -1,0 +1,93 @@
+<!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+    <div class="p-3 shadow-lg rounded-lg">
+      <p-chart type="bar" [data]="barChartData" [options]="chartOptions"></p-chart>
+    </div>
+    <div class="p-3 shadow-lg rounded-lg">
+      <p-chart type="line" [data]="lineChartData" [options]="chartOptions"></p-chart>
+    </div>
+    <div class="p-3 shadow-lg rounded-lg col-span-1 md:col-span-2">
+      <p-chart type="doughnut" [data]="doughnutChartData" [options]="chartOptions"></p-chart>
+    </div>
+  </div> -->
+
+
+
+<div class="col-12 w-full ">
+    <div class="flex flex-wrap">
+        <!-- Gráfico de barras -->
+        <div class="col-12 md:col-6 ">
+            <div *ngIf="showBarChart" class="border-gray-300 shadow-2 border-round-md p-2" [ngStyle]="{color: 'var(--primary-900)'}">
+                <div class="ml-2 mb-2 font-semibold text-700" >Ciberataque</div>
+                <p-chart type="bar" [data]="barChartData" [options]="barChartOptions"></p-chart>
+            </div>
+        </div>
+
+
+        <!-- Gráfico de línea -->
+
+        <div class="col-12 md:col-6 lg:col-6" >
+            <div *ngIf="showLineChart" ngClass="border-gray-300 shadow-2 p-2 border-round-md" [ngStyle]="{color: 'var(--primary-900)'}">
+                <div class="font-semibold mb-1">Deteccón en tiempo real</div>
+                <p-chart type="line" [data]="lineChartData" [options]="lineChartOptions"></p-chart>
+            </div>
+
+            <!-- Resumen de la semana con p-knob -->
+            <div class="col-12 md:col-6 lg:col-6  border-round px-4 border-gray-300 shadow-2 border-round-md w-full mt-3">
+                <div *ngIf="showKnob" class="">
+                    <div class="flex justify-content-between align-items-center " [ngStyle]="{color: 'var(--primary-900)'}">
+                        <span class="text-sm text-blue-500 font-semibold">Resumen de la semana</span>
+                    </div>
+                    <ul class="list-none p-0 m-0">
+                        <li
+                            class="border-bottom-1 surface-border py-2 flex flex-row md:align-items-center md:justify-content-between">
+                            <div class="inline-flex align-items-center flex-1">
+                                <i class="pi pi-shield text-red-500 text-xl mr-2"></i>
+                                <span class="text-blue-500 text-xs ">Ciberataque</span>
+                            </div>
+                            <div class="flex align-items-center">
+                                <span class="text-blue-500 font-medium mr-2 text-base md:text-xs">%{{ ciberataque
+                                    }}</span>
+                                <p-knob [(ngModel)]="ciberataque" [readonly]="true" size="40" valueColor="orange"
+                                    [showValue]="false"></p-knob>
+                            </div>
+                        </li>
+                        <li
+                            class="border-bottom-1 surface-border py-2 flex flex-row md:align-items-center md:justify-content-between">
+                            <div class="inline-flex align-items-center flex-1">
+                                <i class="pi pi-volume-up text-blue-500 text-xl mr-2"></i>
+                                <span class="text-blue-500 text-xs">Ruido</span>
+                            </div>
+                            <div class="flex align-items-center">
+                                <span class="text-900 font-medium mr-2 text-base md:text-xs">%{{ ruido }}</span>
+                                <p-knob [(ngModel)]="ruido" [readonly]="true" size="40" valueColor="royalblue"
+                                    [showValue]="false"></p-knob>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- <div *ngIf="showDoughnutChart" class="col-span-1 md:col-span-3 p-3 shadow-lg rounded-lg flex flex-col md:flex-row justify-between items-center">
+      <div>
+        <h4 class="text-lg font-semibold mb-2">Resumen de la semana</h4>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-red-500">Ciberataque</span>
+            <p class="text-xl font-semibold">%71</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-blue-500">Ruido</span>
+            <p class="text-xl font-semibold">%41</p>
+          </div>
+        </div>
+      </div>
+      <div class="w-40">
+        <p-chart type="doughnut" [data]="doughnutChartData" [options]="chartOptions"></p-chart>
+      </div>
+    </div> 
+  </div>-->

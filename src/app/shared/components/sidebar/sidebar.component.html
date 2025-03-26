@@ -1,0 +1,78 @@
+
+<div class="min-h-screen flex surface-ground mt-1">
+    <div id="app-sidebar-1"
+        class="surface-section h-screen hidden lg:block flex-shrink-0 fixed lg:sticky left-0 top-0 z-1 shadow-2 surface-border select-none"
+        style="width:280px">
+        <div class="flex flex-column h-full">
+            <div class="flex align-items-center px-5 flex-shrink-0" style="height:60px; width: 305px; padding-top: 50px;">
+                <img src="../../../../assets/images/fuzzing.png" alt="Image" height="90" width="300">
+            </div>
+            <div class="overflow-y-auto ">
+                <ul class="list-none pt-5 mt-5">
+                    <li>
+                        <a pRipple
+                            class="flex align-items-center cursor-pointer p-3 border-round text-blue-500 hover:surface-100 transition-duration-150 transition-colors"
+                            [routerLink]="['/']">
+                            <i class="pi pi-home mr-3 "></i>
+                            <span class="font-medium text-blue-500">Home</span>
+                        </a>
+                    </li>
+
+                    <!--Lista e proyectos -->
+                    <li>
+                        <a pRipple 
+                        a pRipple
+                            class="flex align-items-center cursor-pointer p-3 border-round text-blue-500 hover:surface-100 transition-duration-150 transition-colors"
+                            [routerLink]="['/sbr/sbr-dashboard']">
+                            <i class="pi pi-upload mr-3"></i>
+                            <span class="text-blue-500">Dashboard</span>
+                        </a>
+                    <!-- <li>
+                        <a pRipple
+                            class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors"
+                            [routerLink]="['/project/carga-datos']">
+                            <i class="pi pi-upload mr-2"></i>
+                            <span class="font-medium" >Cargar nuevos datos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a pRipple
+                            class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors"
+                            [routerLink]="['/project/charts']">
+                            <i class="pi pi-chart-line mr-2"></i>
+                            <span class="font-medium">Estadisticas</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a pRipple
+                            class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors"
+                            [routerLink]="['/project/informe']">
+                            <i class="pi pi-microchip-ai mr-2"></i>
+                            <span class="font-medium">Vulnerabilidades</span>
+                        </a>
+                    </li> -->
+                    
+                </ul>
+            </div>
+            <div class="mt-auto">
+                <hr class="mb-3 mx-3 border-top-1 border-none surface-border" />
+                <a pRipple
+                    class="flex align-items-center cursor-pointer p-5 border-round text-700 hover:surface-100 transition-duration-150 transition-colors">
+                    <i class="pi pi-sign-out mr-2"></i>
+                    <span class="font-medium">Salir</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="min-h-screen flex flex-column relative flex-auto">
+        <div class=" flex flex-column flex-auto">
+            <div class=" border-gray-300 shadow-2 border-round surface-section flex-auto">
+
+                
+                <router-outlet></router-outlet>
+                
+            </div>
+        </div>
+    </div>
+</div>
