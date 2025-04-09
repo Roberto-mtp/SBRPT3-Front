@@ -1,11 +1,31 @@
-::ng-deep .p-badge {
-    background-color: #004A6C;
-}
 
 .ruido {
-    color: #0E4F70;
+    color: #004A6D;
 }
 
 .ataque {
-    color: red;
+    color: #F5471D;
+}
+
+::ng-deep .badge-ruido .p-badge {
+    background-color: #004A6D;
+}
+::ng-deep .badge-ataque .p-badge {
+    background-color: #F5471D;
+}
+
+::ng-deep .p-paginator .p-dropdown  {
+    
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    height: 2.5rem;
+    
+}
+
+::ng-deep .p-inputtext{
+    font-size: 0.8rem;
+}
+
+::ng-deep .p-paginator .p-paginator-pages .p-paginator-page{
+    font-size: 0.8rem;
 }

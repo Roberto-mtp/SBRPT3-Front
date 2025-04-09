@@ -1,24 +1,23 @@
-<div class="absolute left-0 surface-overlay py-6 px-8 shadow-1 flex items-center relative lg:static"
-  style="min-height: 80px; display: flex; align-items: center; gap: 20px; position: absolute;">
-  <img src="assets/logos/MTP_Logo.svg" alt="Image" width="175" height="52.35" class="mr-0 lg:mr-6"
+<div class="flex flex-wrap surface-overlay py-5 px-8 shadow-1">
+  <img src="../../../assets/logos/MTP_Logo.svg" alt="Image" width="175" height="52.35" class="mr-0 lg:mr-6"
     (click)="irHome()">
   <a pRipple class="cursor-pointer block lg:hidden text-700" pStyleClass="@next" enterClass="hidden"
     leaveToClass="hidden"> <!-- [hideOnOutsideClick]="true" -->
     <i class="pi pi-bars text-4xl"></i>
   </a>
 
-  <div class="absolute bottom-1 mt-8 ml-8 ">
-    <p-breadcrumb class="max-w-full flex flex-wrap ml-8 pl-8 " [model]="items">
-      <ng-template pTemplate="item" let-item >
+  <div class="flex flex-row bottom-1">
+    <p-breadcrumb class=" max-w-full flex flex-wrap " [model]="items">
+      <ng-template pTemplate="item" let-item>
         <ng-container *ngIf="item.route; else elseBlock">
-          <a [routerLink]="item.route" class="p-menuitem-link">
-            <span [ngClass]="[item.icon ? item.icon : '', 'var(--primary-900)']"></span>
-            <span class="font-semibold " [ngStyle]="{color: 'var(--primary-900)'}">{{ item.label }}</span>
+          <a [routerLink]="item.route" class="p-menuitem-link text-blue-500">
+            <span [ngClass]="[item.icon ? item.icon : '']"></span>
+            <span class="text-primary-900 font-semibold ">{{ item.label }}</span>
           </a>
         </ng-container>
         <ng-template #elseBlock>
           <a [href]="item.url">
-            <span class="text-color">{{ item.label }}</span>
+            <span class="text-blue-500">{{ item.label }}</span>
           </a>
         </ng-template>
       </ng-template>

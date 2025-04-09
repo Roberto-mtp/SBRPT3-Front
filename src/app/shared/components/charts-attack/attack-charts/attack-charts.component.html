@@ -12,54 +12,55 @@
 
 
 
-<div class="col-12 w-full ">
+<div class="relative col-12 w-full ">
     <div class="flex flex-wrap">
         <!-- Gráfico de barras -->
-        <div class="col-12 md:col-6 ">
-            <div *ngIf="showBarChart" class="border-gray-300 shadow-2 border-round-md p-2" [ngStyle]="{color: 'var(--primary-900)'}">
+        <div class="relative col-12 md:col-6 xs:col-3">
+            <div *ngIf="showBarChart" class="border-gray-300 shadow-2 border-round-md p-2" [ngStyle]="{color: '#004A6D'}">
                 <div class="ml-2 mb-2 font-semibold text-700" >Ciberataque</div>
                 <p-chart type="bar" [data]="barChartData" [options]="barChartOptions"></p-chart>
             </div>
         </div>
 
 
-        <!-- Gráfico de línea -->
-
+        
         <div class="col-12 md:col-6 lg:col-6" >
-            <div *ngIf="showLineChart" ngClass="border-gray-300 shadow-2 p-2 border-round-md" [ngStyle]="{color: 'var(--primary-900)'}">
-                <div class="font-semibold mb-1">Deteccón en tiempo real</div>
+          
+          <!-- Gráfico de línea -->
+            <div *ngIf="showLineChart" ngClass="border-gray-300 shadow-2 p-2 border-round-md" [ngStyle]="{color: '#004A6D'}">
+                <div class="font-semibold mb-0">Deteccón en tiempo real</div>
                 <p-chart type="line" [data]="lineChartData" [options]="lineChartOptions"></p-chart>
             </div>
 
             <!-- Resumen de la semana con p-knob -->
             <div class="col-12 md:col-6 lg:col-6  border-round px-4 border-gray-300 shadow-2 border-round-md w-full mt-3">
                 <div *ngIf="showKnob" class="">
-                    <div class="flex justify-content-between align-items-center " [ngStyle]="{color: 'var(--primary-900)'}">
+                    <div class="flex justify-content-between align-items-center " >
                         <span class="text-sm text-blue-500 font-semibold">Resumen de la semana</span>
                     </div>
                     <ul class="list-none p-0 m-0">
                         <li
-                            class="border-bottom-1 surface-border py-2 flex flex-row md:align-items-center md:justify-content-between">
+                            class="border-bottom-1 surface-border py-1 flex flex-row md:align-items-center md:justify-content-between">
                             <div class="inline-flex align-items-center flex-1">
-                                <i class="pi pi-shield text-red-500 text-xl mr-2"></i>
-                                <span class="text-blue-500 text-xs ">Ciberataque</span>
+                                <i class="pi pi-shield text-md mr-2 text-red-500"></i>
+                                <span class="text-xs ">Ciberataque</span>
                             </div>
-                            <div class="flex align-items-center">
+                            <div class="flex align-items-center m-0">
                                 <span class="text-blue-500 font-medium mr-2 text-base md:text-xs">%{{ ciberataque
                                     }}</span>
-                                <p-knob [(ngModel)]="ciberataque" [readonly]="true" size="40" valueColor="orange"
+                                <p-knob [(ngModel)]="ciberataque" [readonly]="true" size="50" valueColor="#F5471D"
                                     [showValue]="false"></p-knob>
                             </div>
                         </li>
                         <li
-                            class="border-bottom-1 surface-border py-2 flex flex-row md:align-items-center md:justify-content-between">
+                            class="border-bottom-1 surface-border py-1 flex flex-row md:align-items-center md:justify-content-between">
                             <div class="inline-flex align-items-center flex-1">
-                                <i class="pi pi-volume-up text-blue-500 text-xl mr-2"></i>
-                                <span class="text-blue-500 text-xs">Ruido</span>
+                                <i class="pi pi-wave-pulse text-blue-500 text-xl mr-2"></i>
+                                <span class="text-xs">Ruido</span>
                             </div>
                             <div class="flex align-items-center">
                                 <span class="text-900 font-medium mr-2 text-base md:text-xs">%{{ ruido }}</span>
-                                <p-knob [(ngModel)]="ruido" [readonly]="true" size="40" valueColor="royalblue"
+                                <p-knob [(ngModel)]="ruido" [readonly]="true" size="50" valueColor="#004A6D"
                                     [showValue]="false"></p-knob>
                             </div>
                         </li>

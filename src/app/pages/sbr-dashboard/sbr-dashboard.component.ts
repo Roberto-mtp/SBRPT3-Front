@@ -43,9 +43,15 @@ export class SbrDashboardComponent {
     { ip: '192.168.2.20', amenazas: 1 },
     { ip: '192.168.2.30', amenazas: 2 },
     { ip: '192.168.2.40', amenazas: 3 },
+    { ip: '182.168.2.6', amenazas: 4 },
+    { ip: '172.168.2.1', amenazas: 5 },
+    { ip: '152.168.2.4', amenazas: 6 },
   ];
 
   ruidos: Registro[] = [
+    { ip: '192.168.2.50', amenazas: 1 },
+    { ip: '192.168.2.40', amenazas: 3 },
+    { ip: '192.168.2.30', amenazas: 2 },
     { ip: '192.168.2.50', amenazas: 1 },
     { ip: '192.168.2.40', amenazas: 3 },
     { ip: '192.168.2.30', amenazas: 2 },
@@ -54,5 +60,9 @@ export class SbrDashboardComponent {
 
   verAtaque() {
     this.router.navigate(['sbr/ataques'])
+  }
+
+  verDetalleIp(ip: string) {
+    this.router.navigate(['/sbr/ataques'], { queryParams: { ip } });
   }
 }

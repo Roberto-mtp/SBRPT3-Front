@@ -59,9 +59,7 @@ export class NavbarComponent implements OnInit{
     const labels: { [key: string]: string } = {
       'sbr-dashboard': 'dashboard',
       'ataques': 'ataques',
-      '': '',
-      '': '',
-      '': ''
+      
 
     };
   

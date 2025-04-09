@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ResumenAtaque } from '../../shared/interfaces/ataque/resumen-ataque';
+import { delay, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -71,4 +72,28 @@ export class AtaquesService {
     ]
   };
 }
+
+
+getDetails(){
+  return {
+    datos:[
+    {
+      id_flujo: 'CAwAAAHAqAlywKgCPLMi0Najow',
+      fecha_deteccion: '2024-12-18 10:58:22',
+      id_ataque: 204,
+      tipo: 'PortScam',
+      duracion: 18184.452981,
+      num_flujos: 7,
+      probabilidad: '97%'
+    },
+    
+    ]
+  }
+} 
+
+  getDetalleAtaque(id: number): Observable<any> {
+    const detalle = this.getDetails().datos.find(item => item.id_ataque === id);
+    return of(detalle).pipe(delay(500)); // simula retardo como un backend real
+  }
+
 }

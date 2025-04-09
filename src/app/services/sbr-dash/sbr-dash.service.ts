@@ -17,7 +17,7 @@ options:any;
         {
           label: 'Porcentaje',
           data: [50, 80],
-          backgroundColor: ['#0E4F70', '#E74C3C'],
+          backgroundColor: ['#0E4F70', '#F5471D'],
           barThickness: 120,  
           maxBarThickness: 140, 
           borderRadius: 5,
@@ -28,10 +28,10 @@ options:any;
 
   getLineChartData(): Observable<any> {
     return of({
-      labels: ['T10', 'T20', 'T30', 'T40', 'T50', 'T60', 'T70'],
+      labels: ['T5', 'T10', 'T15', 'T20', 'T25', 'T30', 'T35', 'T40', 'T45', 'T50', 'T55', 'T60', 'T65'],
       datasets: [
-        { label: 'Ruido', data: [40, 45, 55, 60, 50, 70, 65], borderColor: '#0E4F70', fill: false },
-        { label: 'Ciberataque', data: [30, 50, 40, 60, 75, 80, 90], borderColor: '#E74C3C', fill: false }
+        { label: 'Ruido', data: [30, 45, 55, 60, 50, 70, 65, 10, 40, 25, 55, 80, 40], borderColor: '#0E4F70', fill: false },
+        { label: 'Ciberataque', data: [10, 50, 40, 60, 35, 80, 40, 35, 60, 30, 70, 40, 10], borderColor: '#F5471D', fill: false }
       ]
     });
   }
@@ -72,14 +72,14 @@ options:any;
   }
 
 
-  getDoughnutChartData(): Observable<any> {
+  /* getDoughnutChartData(): Observable<any> {
     return of({
       labels: ['Ciberataque', 'Ruido'],
       datasets: [
-        { data: [71, 41], backgroundColor: ['#E74C3C', '#0E4F70'] }
+        { data: [71, 41], backgroundColor: ['#F5471D', '#F5471D'] }
       ]
     });
-  }
+  } */
 
   getChartOptions(): Observable<any> {
     return of({

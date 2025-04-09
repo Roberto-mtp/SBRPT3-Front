@@ -10,6 +10,7 @@ import { DialogModule } from 'primeng/dialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { AtaquesService } from '../../services/ataques/ataques.service';
 import { ResumenAtaque } from '../../shared/interfaces/ataque/resumen-ataque';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -41,14 +42,32 @@ interface PageEvent {
   styleUrl: './ataques.component.scss'
 })
 export class AtaquesComponent {
+  
   resumen!: ResumenAtaque;
   tipoAtaque: string = '';
   hora: string = '';
   datos: any[] = [];
+  details: any = [];
+  ipSeleccionada: string = '';
 
   paginatedDatos: any[] = [];
+
+  displayModal: boolean = false;
+  selectedFile: any;
+
   
-  constructor(private ataquesService: AtaquesService) {
+  constructor(private ataquesService: AtaquesService, private router:Router, private route:ActivatedRoute) {
+  
+  this.route.queryParams.subscribe(params => {
+    const ipSelecionada = params['ip'];
+    if (ipSelecionada) {
+      this.ipSeleccionada = ipSelecionada;
+    }
+  })
+
+    //llamamos al metodo detalle
+  this.details = ataquesService.getDetails();
+
   this.resumen = this.ataquesService.getResumenAtaque();
   this.tipoAtaque = this.resumen.tipoAtaque;
   this.hora = this.resumen.timestamp;
@@ -59,6 +78,7 @@ export class AtaquesComponent {
   first: number = 0;
   rows: number = 4;
 
+  //Informe
   cols: any[] = [
     { field: 'src_port', header: 'src_port' },
     { field: 'dst_port', header: 'dst_port' },
@@ -69,15 +89,24 @@ export class AtaquesComponent {
     { field: 'detalles', header: 'Detalles' }
   ];
 
-  displayModal: boolean = false;
-  selectedFile: any;
-
+  //Detalles
+  colDetail: any[] = [
+    { id_flujo: 'Id de flujo', header: 'Id de flujo'},
+    { id_ataque: 'Id de ataque', header: 'Id de ataque' },
+    { tipo: 'Tipo', header: 'Tipo' },
+    { num_flujos: 'Numero de flujos', header: 'Numero de flujos' },
+  ]
 
   detalles(rowData: any): void {
-    this.selectedFile = rowData;
-    this.displayModal = true;
-  }
+  const idAtaque = rowData.id_ataque ?? 204; // valor por defecto si falta
 
+  this.ataquesService.getDetalleAtaque(idAtaque).subscribe((data) => {
+    this.selectedFile = data;
+    this.displayModal = true;
+  });
+}
+
+//Paginación
   updatePaginatedData() {
     const start = this.first;
     const end = this.first + this.rows;
@@ -88,6 +117,10 @@ export class AtaquesComponent {
     this.first = event.first;
     this.rows = event.rows;
     this.updatePaginatedData();
+  }
+
+  irADashboar(){
+    this.router.navigate(['/sbr/sbr-dashboard'])
   }
 
 }

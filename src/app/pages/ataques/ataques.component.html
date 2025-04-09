@@ -6,9 +6,13 @@
 
   <div class="flex justify-content-between align-items-center ml-3 p-3 mb-3 shadow-2 border-round-md surface-card" style="width: 500px;">
     <div class="flex align-items-center gap-2">
-      <span class="text-900 font-medium">Tipo de Ataque:</span>
-      <span class="text-primary font-bold">{{ tipoAtaque }}</span>
-      <i class="pi pi-exclamation-triangle text-danger"></i>
+      <span class="text-900 font-medium">IP:</span>
+      <span class="text-blue-500  font-bold">{{ ipSeleccionada || 'N/A' }}</span>
+    </div>
+    <div class="flex align-items-center gap-2">
+      <span class="text-900 font-medium">Ataque:</span>
+      <span class="text-blue-500  font-bold">{{ tipoAtaque }}</span>
+      <!-- <i class="pi pi-exclamation-triangle text-orange-500"></i> -->
     </div>
     <div class="flex align-items-center gap-2">
       <i class="pi pi-clock text-red-500"></i>
@@ -24,7 +28,7 @@
     <p-table [columns]="cols" [value]="paginatedDatos" responsiveLayout="scroll" class=" w-full">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <th *ngFor="let col of columns" [pSortableColumn]="col.field" class="text-center text-sm ">
+                <th *ngFor="let col of columns" [pSortableColumn]="col.field" class="text-center text-sm text-blue-500">
                     {{ col.header }}
                     <ng-container *ngIf="col.field !== 'detalles'">
                         <p-sortIcon [field]="col.field"></p-sortIcon>
@@ -46,7 +50,7 @@
                         <button *ngIf="rowData['detalles']" 
                             pButton 
                             icon="pi pi-file" 
-                            class="text-center ml-4"
+                            class="text-center ml-4 border-circle"
                             (click)="detalles(rowData)">
                         </button>
                     </ng-container>
@@ -64,7 +68,7 @@
     
 
 
-<div class="flex justify-content-between mt-2 ">
+<div class="flex flex-column">
     <p-paginator 
         [first]="first" 
         [rows]="rows" 
@@ -72,16 +76,50 @@
         [rowsPerPageOptions]="[4, 8, 10]"
         (onPageChange)="onPageChange($event)">
     </p-paginator>
-    <div class="flex align-items-center justify-content-end ">
-    <button [ngStyle]="{backgroundColor:'var(--primary-900)', color: 'var(--primary-color-text)'}" pButton label="Ver todos" class="mt-2 mb-2" style="width: 200px;"></button>
+    <div class="flex align-items-center justify-content-end " (click)="irADashboar()">
+    <button  pButton label="Volver" class="mt-2 mb-2" style="width: 200px;"></button>
     </div>
 </div>
 
  
 </p-card>
 </div>
-<!-- Modal de confirmación de descarga -->
-<p-dialog [(visible)]="displayModal" [modal]="true" header="Detalles" [style]="{width: '30%'}">
-<p class="text-center">Detalles del atacante</p>
 
+<!-- Modal de detalles -->
+<p-dialog [(visible)]="displayModal" [modal]="true" [closable]="false" header="Información detallada"
+  [style]="{ width: '50vw' }" [breakpoints]="{ '860px': '80vw' }" [contentStyle]="{ 'padding': '0' }">
+  <div class="p-4 surface-card">
+
+    <div class="text-xl text-blue-500 font-bold mb-2 pb-1 text-center">
+      Detalles del atacante
+    </div>
+
+    <div class="grid  border-round-md border-blue-500 border-1 shadow-2 m-4">
+      <div class="col-6 text-right font-semibold">Id de flujo:</div>
+      <div class="col-6 text-left">{{ selectedFile?.id_flujo }}</div>
+
+      <div class="col-6 text-right font-semibold">Fecha de detección:</div>
+      <div class="col-6 text-left">{{ selectedFile?.fecha_deteccion }}</div>
+
+      <div class="col-6 text-right font-semibold">Id de ataque:</div>
+      <div class="col-6 text-left">{{ selectedFile?.id_ataque }}</div>
+
+      <div class="col-6 text-right font-semibold">Tipo:</div>
+      <div class="col-6 text-left">{{ selectedFile?.tipo }}</div>
+
+      <div class="col-6 text-right font-semibold">Duración (ms):</div>
+      <div class="col-6 text-left">{{ selectedFile?.duracion }}</div>
+
+      <div class="col-6 text-right font-semibold">N° de flujos:</div>
+      <div class="col-6 text-left">{{ selectedFile?.num_flujos }}</div>
+
+      <div class="col-6 text-right font-semibold">Probabilidad:</div>
+      <div class="col-6 text-left">{{ selectedFile?.probabilidad }}</div>
+    </div>
+
+    <div class="mt-4 text-center">
+      <button pButton type="button" label="Aceptar" class="p-button-round p-button-blue-500 w-5"
+        (click)="displayModal = false"></button>
+    </div>
+  </div>
 </p-dialog>
