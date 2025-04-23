@@ -15,7 +15,7 @@ options:any;
       labels: ['Ruido', 'Ciberataque'],
       datasets: [
         {
-          label: 'Porcentaje',
+          label: '',
           data: [50, 80],
           backgroundColor: ['#0E4F70', '#F5471D'],
           barThickness: 120,  
@@ -43,7 +43,7 @@ options:any;
       aspectRatio:0.9,
       
       plugins: {
-        legend: { display: true, position: 'top' }
+        legend: { display: false, position: 'top' }
       },
       scales: {
         x: { grid: { display: false }, ticks: { font: { size: 12 } } },

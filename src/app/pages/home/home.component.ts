@@ -24,6 +24,6 @@ export class HomeComponent {
 
 
   irADash() {
-    this.router.navigate(['/sbr/sbr-dashboard']);
+    this.router.navigate(['/SecBluRed/sbr-dashboard']);
   }
 }

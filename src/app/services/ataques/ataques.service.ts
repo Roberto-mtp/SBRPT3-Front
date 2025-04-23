@@ -81,7 +81,7 @@ getDetails(){
       id_flujo: 'CAwAAAHAqAlywKgCPLMi0Najow',
       fecha_deteccion: '2024-12-18 10:58:22',
       id_ataque: 204,
-      tipo: 'PortScam',
+      tipo: 'PortScan',
       duracion: 18184.452981,
       num_flujos: 7,
       probabilidad: '97%'

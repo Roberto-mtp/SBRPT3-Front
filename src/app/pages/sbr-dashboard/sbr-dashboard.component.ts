@@ -59,10 +59,10 @@ export class SbrDashboardComponent {
 
 
   verAtaque() {
-    this.router.navigate(['sbr/ataques'])
+    this.router.navigate(['SecBluRed/ataques'])
   }
 
   verDetalleIp(ip: string) {
-    this.router.navigate(['/sbr/ataques'], { queryParams: { ip } });
+    this.router.navigate(['/SecBluRed/ataques'], { queryParams: { ip } });
   }
 }

@@ -86,7 +86,7 @@ export class AtaquesComponent {
     { field: 'frame_len', header: 'frame_len' },
     { field: 'window_mean', header: 'window_mean' },
     { field: 'window_std', header: 'window_std' },  
-    { field: 'detalles', header: 'Detalles' }
+    
   ];
 
   //Detalles
@@ -120,7 +120,7 @@ export class AtaquesComponent {
   }
 
   irADashboar(){
-    this.router.navigate(['/sbr/sbr-dashboard'])
+    this.router.navigate(['/SecBluRed/sbr-dashboard'])
   }
 
 }

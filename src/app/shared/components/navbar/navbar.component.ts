@@ -57,8 +57,8 @@ export class NavbarComponent implements OnInit{
 
   formatBreadcrumbLabel(segment: string): string {
     const labels: { [key: string]: string } = {
-      'sbr-dashboard': 'dashboard',
-      'ataques': 'ataques',
+      'sbr-dashboard': 'Dashboard',
+      'ataques': 'Ataques',
       
 
     };

@@ -88,7 +88,7 @@ export class AttackChartsComponent implements OnInit {
       } else {
         clearInterval(this.intervalId); // Detener cuando ya se mostró todo
       }
-    }, 3000); // cada 5 segundos
+    }, 1000); // cada 5 segundos
   }
 
   ngOnDestroy(): void {

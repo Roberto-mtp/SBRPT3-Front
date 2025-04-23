@@ -15,9 +15,9 @@
 <div class="relative col-12 w-full ">
     <div class="flex flex-wrap">
         <!-- Gráfico de barras -->
-        <div class="relative col-12 md:col-6 xs:col-3">
+        <div class="relative col-12 md:col-6 ">
             <div *ngIf="showBarChart" class="border-gray-300 shadow-2 border-round-md p-2" [ngStyle]="{color: '#004A6D'}">
-                <div class="ml-2 mb-2 font-semibold text-700" >Ciberataque</div>
+                <div class="ml-2 mb-2 font-semibold text-700" >Porcentaje de detección</div>
                 <p-chart type="bar" [data]="barChartData" [options]="barChartOptions"></p-chart>
             </div>
         </div>
@@ -28,7 +28,7 @@
           
           <!-- Gráfico de línea -->
             <div *ngIf="showLineChart" ngClass="border-gray-300 shadow-2 p-2 border-round-md" [ngStyle]="{color: '#004A6D'}">
-                <div class="font-semibold mb-0">Deteccón en tiempo real</div>
+                <div class="font-semibold mb-0">Detección en tiempo real</div>
                 <p-chart type="line" [data]="lineChartData" [options]="lineChartOptions"></p-chart>
             </div>
 
