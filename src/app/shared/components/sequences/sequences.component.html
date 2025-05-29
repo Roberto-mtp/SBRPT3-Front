@@ -1,16 +1,25 @@
-<div class="grid col-12 align-items-center">
-<div class="col-12 flex justify-between items-center w-full p-2 pl-8">
-  <div class="col-12 md:col-4 lg:col-4 flex align-items-center gap-2">
-    <span class="border-bottom-1">Número de notificaciones</span>
-    <p-badge [value]="data?.notifications" severity="info"></p-badge>
+<div class="grid col-12">
+  <div class="col-12 flex p-2 ">
+    <!--Solo para dhasboard-->
+    @if (context === 'dashboard'){
+    <div class="col-3 ml-4">
+      <span class="border-bottom-1 mr-2">Número de notificaciones</span>
+      <p-badge [value]="data?.notifications" severity="info"></p-badge>
+    </div>
+    }
+
+    <!--Solo para ataques-->
+    <div class="col-12 flex justify-content-center gap-8">
+    @if (context === 'ataques'){
+    <div class="flex align-items-center gap-2 mr-6">
+      <span class="border-bottom-1">Secuencia de paquetes:</span>
+      <p-badge [value]="data?.normalSequence" severity="success"></p-badge>
+    </div>
+    <div class="flex align-items-center gap-2 ml-6">
+      <span class="border-bottom-1">Secuencia de tramos:</span>
+      <p-badge [value]="data?.noiseSequence" severity="primary"></p-badge>
+    </div>
+    }
   </div>
-  <div class="col-12 md:col-4 lg:col-4 flex align-items-center gap-2 ">
-    <span class="border-bottom-1">Secuencia normal de la red:</span>
-    <p-badge [value]="data?.normalSequence" severity="success"></p-badge>
   </div>
-  <div class="col-12 md:col-4 lg:col-4 flex align-items-center gap-2">
-    <span class="border-bottom-1">Secuencia de ruidos detectados:</span>
-    <p-badge [value]="data?.noiseSequence" severity="primary"></p-badge>
-  </div>
-</div>
 </div>

@@ -17,6 +17,8 @@ import { InfoSequencesService } from '../../../services/sequences/info-sequences
   styleUrl: './sequences.component.scss'
 })
 export class SequencesComponent implements OnInit {
+  @Input() context: 'dashboard' | 'ataques' = 'dashboard'; // 🔹 nuevo input
+
   data: { notifications: number; normalSequence: number; noiseSequence: number } | null = null;
 
   constructor(private infoSequencesService: InfoSequencesService) {}

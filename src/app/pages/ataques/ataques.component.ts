@@ -123,4 +123,25 @@ export class AtaquesComponent {
     this.router.navigate(['/SecBluRed/sbr-dashboard'])
   }
 
+  //TODO: simulacion para generar logs
+  generarLog(): void {
+  const fechaActual = new Date().toISOString();
+
+  const detalles = this.ataquesService.getLogs().datos;
+
+  const logLines = detalles.map(dato => {
+    return `Fecha: ${fechaActual} | IP: 192.168.1.1 | Tipo: ${dato.tipo} | Probabilidad: ${dato.probabilidad}`;
+  });
+
+  const contenidoLog = logLines.join('\n');
+
+  const blob = new Blob([contenidoLog], { type: 'text/plain' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `log-ataques-${new Date().toISOString()}.txt`;
+  a.click();
+  window.URL.revokeObjectURL(url);
+}
+
 }
