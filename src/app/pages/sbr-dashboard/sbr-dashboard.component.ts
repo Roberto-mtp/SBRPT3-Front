@@ -40,21 +40,21 @@ export class SbrDashboardComponent {
 
 
   ataques: Registro[] = [
-    { ip: '192.168.2.20', amenazas: 1 },
-    { ip: '192.168.2.30', amenazas: 2 },
-    { ip: '192.168.2.40', amenazas: 3 },
-    { ip: '182.168.2.6', amenazas: 4 },
-    { ip: '172.168.2.1', amenazas: 5 },
-    { ip: '152.168.2.4', amenazas: 6 },
+    { ip: '192.168.2.20', amenazas: 71 },
+    { ip: '192.168.2.30', amenazas: 22 },
+    { ip: '192.168.2.40', amenazas: 13 },
+    { ip: '182.168.2.6', amenazas: 45 },
+    { ip: '172.168.2.1', amenazas: 105 },
+    { ip: '152.168.2.4', amenazas: 63 },
   ];
 
   ruidos: Registro[] = [
-    { ip: '192.168.2.50', amenazas: 1 },
-    { ip: '192.168.2.40', amenazas: 3 },
-    { ip: '192.168.2.30', amenazas: 2 },
-    { ip: '192.168.2.50', amenazas: 1 },
-    { ip: '192.168.2.40', amenazas: 3 },
-    { ip: '192.168.2.30', amenazas: 2 },
+    { ip: '192.168.2.50', amenazas: 21 },
+    { ip: '192.168.2.40', amenazas: 13 },
+    { ip: '192.168.2.30', amenazas: 25 },
+    { ip: '192.168.2.50', amenazas: 61 },
+    { ip: '192.168.2.40', amenazas: 30 },
+    { ip: '192.168.2.30', amenazas: 29 },
   ];
 
 
