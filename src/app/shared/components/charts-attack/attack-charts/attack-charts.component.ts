@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 import { SbrDashService } from '../../../../services/sbr-dash/sbr-dash.service';
 import { CommonModule } from '@angular/common';
@@ -15,12 +15,12 @@ import { CardModule } from 'primeng/card';
     KnobModule,
     CommonModule,
     FormsModule,
-    CardModule
+    CardModule,
   ],
   templateUrl: './attack-charts.component.html',
-  styleUrl: './attack-charts.component.scss'
+  styleUrl: './attack-charts.component.scss',
 })
-export class AttackChartsComponent implements OnInit {
+export class AttackChartsComponent implements OnInit, OnDestroy {
   @Input() showBarChart: boolean = true;
   @Input() showLineChart: boolean = true;
   @Input() showKnob: boolean = true;
@@ -38,42 +38,90 @@ export class AttackChartsComponent implements OnInit {
   private currentIndex = 0;
   private intervalId: any;
 
-  constructor(private dashService: SbrDashService) {}
+  constructor(readonly dashService: SbrDashService) {}
 
   ngOnInit() {
     if (this.showBarChart) {
-      this.dashService.getBarChartData().subscribe(data => this.barChartData = data);
-      this.barChartOptions = this.dashService.getBarChartOptions();
+      this.dashService.getStats().subscribe((res: any) => {
+        const stats = res.by_prediction ?? [];
+
+        this.barChartData = {
+          labels: stats.map((x: any) =>
+            this.dashService.getPredictionLabel(x.prediction)
+          ),
+          datasets: [
+            {
+              data: stats.map((x: any) => x.count),
+              backgroundColor: ['#0E4F70', '#F5471D'],
+              borderRadius: 5,
+            },
+          ],
+        };
+
+        this.barChartOptions = {
+          responsive: true,
+          maintainAspectRatio: false,
+          aspectRatio: 0.79,
+          barPercentage: 0.7,
+          plugins: {
+            legend: {
+              display: false, // 👈 Desactiva la leyenda
+            },
+          },
+        };
+      });
     }
 
     if (this.showLineChart) {
-      this.dashService.getLineChartData().subscribe(data => {
-        this.fullLabels = data.labels;
-        this.fullDataRuido = data.datasets[0].data;
-        this.fullDataAtaque = data.datasets[1].data;
+      this.dashService.getLatest().subscribe((res: any[]) => {
+        // Preparamos arrays
+        this.fullLabels = res
+          .map((r) => new Date(r.timestamp))
+          .sort((a, b) => a.getTime() - b.getTime())
+          .map((d) => d.toLocaleTimeString());
+        this.fullDataRuido = res.map((r) => (r.prediction === 0 ? 1 : 0));
+        this.fullDataAtaque = res.map((r) => (r.prediction === 1 ? 1 : 0));
 
         this.lineChartData = {
           labels: [],
           datasets: [
+            { label: 'Normal', data: [], borderColor: '#0E4F70', fill: false },
             {
-              label: 'Ruido',
-              data: [],
-              borderColor: '#0E4F70',
-              fill: false
-            },
-            {
-              label: 'Ciberataque',
+              label: 'Malicioso',
               data: [],
               borderColor: '#F5471D',
-              fill: false
-            }
-          ]
+              fill: false,
+            },
+          ],
+        };
+
+        this.lineChartOptions = {
+          type: 'line',
+          responsive: true,
+          maintainAspectRatio: false,
+          aspectRatio: 1.3,
+
+          elements: {
+            line: { tension: 0.3, borderWidth: 2 },
+            point: { radius: 4 },
+          },
+
+          scales: {
+            x: {
+              ticks: { maxRotation: 90, minRotation: 45, maxTicksLimit: 10 },
+            },
+            y: {
+              beginAtZero: true,
+              ticks: { stepSize: 1, font: { size: 8 } },
+            },
+          },
+
+          animation: { duration: 0 },
+          plugins: { legend: { display: true } },
         };
 
         this.startRealTimeSimulation();
       });
-
-      this.lineChartOptions = this.dashService.getLineChartOptions();
     }
   }
 
@@ -81,14 +129,18 @@ export class AttackChartsComponent implements OnInit {
     this.intervalId = setInterval(() => {
       if (this.currentIndex < this.fullLabels.length) {
         this.lineChartData.labels.push(this.fullLabels[this.currentIndex]);
-        this.lineChartData.datasets[0].data.push(this.fullDataRuido[this.currentIndex]);
-        this.lineChartData.datasets[1].data.push(this.fullDataAtaque[this.currentIndex]);
-        this.lineChartData = { ...this.lineChartData }; 
+        this.lineChartData.datasets[0].data.push(
+          this.fullDataRuido[this.currentIndex]
+        );
+        this.lineChartData.datasets[1].data.push(
+          this.fullDataAtaque[this.currentIndex]
+        );
+        this.lineChartData = { ...this.lineChartData };
         this.currentIndex++;
       } else {
-        clearInterval(this.intervalId); // Detener cuando ya se mostró todo
+        clearInterval(this.intervalId);
       }
-    }, 1000); // cada 5 segundos
+    }, 2000);
   }
 
   ngOnDestroy(): void {
@@ -97,51 +149,3 @@ export class AttackChartsComponent implements OnInit {
     }
   }
 }
-
-
-
-    //simulacion cambio de valores
-
-    /* if (this.showBarChart) {
-      this.dashService.getBarChartData().subscribe(data => this.barChartData = data);
-      this.barChartOptions = this.dashService.getBarChartOptions();
-    }
-    if (this.showLineChart) {
-      this.dashService.getLineChartData().subscribe(data => {
-        this.lineChartData = data;
-        this.animateLineChart();
-    });
-      this.lineChartOptions = this.dashService.getLineChartOptions();
-    }
-    
-  }
-  animateLineChart() {
-    this.intervalId = setInterval(() =>{
-      const nuevoRuido = Math.floor(Math.random() * 100);
-      const nuevoAtaque = Math.floor(Math.random() * 100);
-      const nuevaEtiqueta = 'T' + Math.floor(Math.random() * 100);
-      
-      //Agregamos los datos al dataset
-      this.lineChartData.labels.push(nuevaEtiqueta);
-      this.lineChartData.datasets[0].data.push(nuevoRuido);
-      this.lineChartData.datasets[1].data.push(nuevoAtaque);
-
-      //Condicion para limitar los puntos
-      if (this.lineChartData.labels.length > 10) {
-        this.lineChartData.labels.shift();
-        this.lineChartData.datasets[0].data.shift();
-        this.lineChartData.datasets[1].data.shift();
-      }
-
-      //Forzar la actualizacion del chart
-      this.lineChartData = { ...this.lineChartData};
-    },2000);
-  }
-
-  ngOnDestroy(): void {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
-  }
-
-} */

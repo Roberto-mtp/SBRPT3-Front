@@ -1,67 +1,46 @@
-<div class="col-12 flex align-items-center justify-content-center mt-2">
-  <app-sequences context="dashboard" />
+<div class="flex flex-column align-items-center justify-content-center mt-5">
+  <app-sequences context="dashboard" [data]="data" />
 </div>
 
-<!-- Graficos de deteccion en tiempo real -->
-<div class="grid col-12 w-full">
-  <div class="col-12 md:col-12">
-  <app-attack-charts/>
+<div class="col-12">
+  <!-- Graficos de deteccion en tiempo real -->
+
+  <app-attack-charts />
+
+  <!-- Ataques detectados -->
+  <p-panel header="Anomalias detectadas" [toggleable]="false">
+    <p-table
+      [value]="ataques"
+      [paginator]="true"
+      [rows]="3"
+      [rowsPerPageOptions]="[3, 5, 10]"
+      responsiveLayout="scroll"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th id="ip-atacante" class="text-blue-500">IP Atacante</th>
+          <th
+            id="amenazas"
+            class="text-blue-500 flex justify-content-end align-items-center mr-3"
+          >
+            Amenazas
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-ataque>
+        <tr>
+          <td
+            onkeypress="enter"
+            class="text-sm cursor-pointer text-primary hover:underline"
+            (click)="verDetalleIp(ataque.ip)"
+          >
+            <i class="ataque pi pi-desktop text-danger mr-3"></i>{{ ataque.ip }}
+          </td>
+          <td class="flex justify-content-end align-items-center mr-6">
+            <p-badge [value]="ataque.amenazas" class="badge-ataque"></p-badge>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-panel>
 </div>
-
-  
-    <div class="col-12 flex flex-wrap ">
-    <!-- Ataques detectados -->
-    <div class="col-6 md:col-6">
-      <p-panel  header="Ataques detectados" [toggleable]="false">
-        <p-table [value]="ataques" [paginator]="true" [rows]="3" [rowsPerPageOptions]="[3,5,10]" responsiveLayout="scroll">
-          <ng-template pTemplate="header">
-            <tr >
-              <th class="text-blue-500">IP Atacante</th>
-              <th class="text-blue-500 flex justify-content-end align-items-center mr-3">Amenazas</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-ataque >
-            <tr>
-              <td class="text-sm cursor-pointer text-primary hover:underline" (click)="verDetalleIp(ataque.ip)">
-                <i class="ataque pi pi-desktop text-danger mr-3"></i>{{ ataque.ip }}
-              </td>
-              <td class="flex justify-content-end align-items-center mr-6">
-                <p-badge [value]="ataque.amenazas" class="badge-ataque"></p-badge>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </p-panel>
-    </div>
-  
-    <!-- Ruidos detectados -->
-    <div class="col-6 md:col-6" >
-      <p-panel  header="Ruidos detectados"  [toggleable]="false" >
-        <p-table [value]="ruidos" [paginator]="true" [rows]="3" [rowsPerPageOptions]="[3,5,10]" responsiveLayout="scroll">
-          <ng-template pTemplate="header">
-            <tr>
-              <th class="text-blue-500">IP Atacante</th>
-              <th class="text-blue-500 flex justify-content-end align-items-center mr-3">Amenazas</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-ruido>
-            <tr>
-              <td class="text-sm cursor-pointer text-primary hover:underline" (click)="verDetalleIp(ruido.ip)">
-                <i class="ruido pi pi-desktop mr-3"></i>{{ ruido.ip }}
-              </td>
-              <td class="flex justify-content-end align-items-center mr-6">
-                <p-badge [value]="ruido.amenazas"  class="badge-ruido flex"></p-badge>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </p-panel>
-    </div>
-  </div>
-
-  </div>
-
-
-
-<!-- <button [ngStyle]="{backgroundColor:'var(--primary-900)', color: 'var(--primary-color-text)'}" pButton label="Ver todos" class="px-8 mt-3" style="width: 400px;"></button>
-       -->

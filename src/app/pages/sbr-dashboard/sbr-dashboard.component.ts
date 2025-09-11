@@ -8,13 +8,12 @@ import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
 import { BadgeModule } from 'primeng/badge';
 import { Router } from '@angular/router';
-
+import { SbrDashService } from '../../services/sbr-dash/sbr-dash.service';
 
 interface Registro {
   ip: string;
   amenazas: number;
 }
-
 
 @Component({
   selector: 'app-sbr-dashboard',
@@ -26,40 +25,57 @@ interface Registro {
     ButtonModule,
     PanelModule,
     TableModule,
-    BadgeModule
-    
+    BadgeModule,
   ],
   providers: [InfoSequencesService],
   templateUrl: './sbr-dashboard.component.html',
-  styleUrl: './sbr-dashboard.component.scss'
+  styleUrl: './sbr-dashboard.component.scss',
 })
-export class SbrDashboardComponent {
+export class SbrDashboardComponent implements OnInit {
+  ataques: Registro[] = [];
+  ruidos: Registro[] = [];
 
+  data: { notifications: number } | null = null;
 
-  constructor(private router:Router, ){}
+  constructor(readonly router: Router, readonly sbrDashboard: SbrDashService) {}
 
+  ngOnInit(): void {
+    // Consumimos stats
+    this.sbrDashboard.getStats().subscribe((res) => {
+      console.log('Stats:', res);
+      this.ataques = res.by_prediction.map((x: any) => ({
+        ip: '—',
+        amenazas: x.count,
+      }));
+    });
 
-  ataques: Registro[] = [
-    { ip: '192.168.2.20', amenazas: 71 },
-    { ip: '192.168.2.30', amenazas: 22 },
-    { ip: '192.168.2.40', amenazas: 13 },
-    { ip: '182.168.2.6', amenazas: 45 },
-    { ip: '172.168.2.1', amenazas: 105 },
-    { ip: '152.168.2.4', amenazas: 63 },
-  ];
+    // Consumimos latest
+    this.sbrDashboard.getLatest().subscribe((res: any[]) => {
+      console.log('Últimos registros:', res);
 
-  ruidos: Registro[] = [
-    { ip: '192.168.2.50', amenazas: 21 },
-    { ip: '192.168.2.40', amenazas: 13 },
-    { ip: '192.168.2.30', amenazas: 25 },
-    { ip: '192.168.2.50', amenazas: 61 },
-    { ip: '192.168.2.40', amenazas: 30 },
-    { ip: '192.168.2.30', amenazas: 29 },
-  ];
+      const conteo: { [ip: string]: number } = {};
+      res.forEach((r) => {
+        const ip = r.src_ip || '—';
+        conteo[ip] = (conteo[ip] || 0) + 1;
+      });
 
+      this.ataques = Object.entries(conteo).map(([ip, amenazas]) => ({
+        ip,
+        amenazas,
+      }));
+      // 👇 total de anomalías detectadas
+      const totalNotificaciones = Object.values(conteo).reduce(
+        (acc, val) => acc + val,
+        0
+      );
+
+      // Pasamos el total al componente <app-sequences>
+      this.data = { notifications: totalNotificaciones };
+    });
+  }
 
   verAtaque() {
-    this.router.navigate(['SecBluRed/ataques'])
+    this.router.navigate(['SecBluRed/ataques']);
   }
 
   verDetalleIp(ip: string) {

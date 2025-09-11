@@ -1,0 +1,56 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [dismissableMask]="true"
+  header="Información detallada del ataque"
+  [style]="{ width: '50vw' }"
+  [breakpoints]="{ '860px': '80vw' }"
+  [contentStyle]="{ padding: '0' }"
+  (onHide)="close()"
+>
+  <div class="p-4 surface-card">
+    <div class="text-xl text-blue-500 font-bold mb-2 pb-1 text-center">
+      Detalles del ataque
+    </div>
+
+    <div class="grid border-round-md border-blue-500 border-1 shadow-2 m-4">
+      <div class="col-6 text-right font-semibold">Id:</div>
+      <div class="col-6 text-left">{{ attack?.id }}</div>
+
+      <div class="col-6 text-right font-semibold">Timestamp:</div>
+      <div class="col-6 text-left">{{ attack?.timestamp }}</div>
+
+      <div class="col-6 text-right font-semibold">Protocolo:</div>
+      <div class="col-6 text-left">{{ attack?.protocol }}</div>
+
+      <div class="col-6 text-right font-semibold">IP origen:</div>
+      <div class="col-6 text-left">{{ attack?.src_ip }}</div>
+
+      <div class="col-6 text-right font-semibold">IP destino:</div>
+      <div class="col-6 text-left">{{ attack?.dst_ip }}</div>
+
+      <div class="col-6 text-right font-semibold">Puerto origen:</div>
+      <div class="col-6 text-left">{{ attack?.src_port }}</div>
+
+      <div class="col-6 text-right font-semibold">Puerto destino:</div>
+      <div class="col-6 text-left">{{ attack?.dst_port }}</div>
+
+      <div class="col-6 text-right font-semibold">Predicción:</div>
+      <div class="col-6 text-left">{{ attack?.prediction }}</div>
+
+      <div class="col-6 text-right font-semibold">Probabilidad:</div>
+      <div class="col-6 text-left">{{ attack?.proba }}</div>
+    </div>
+
+    <div class="mt-4 flex justify-content-center">
+      <p-button
+        onkeypress="enter"
+        pButton
+        type="button"
+        label="Aceptar"
+        class="p-button-round p-button-blue-500 w-4 align-items-center justify-content-center"
+        (click)="close()"
+      ></p-button>
+    </div>
+  </div>
+</p-dialog>
