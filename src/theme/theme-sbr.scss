@@ -1,8 +1,8 @@
 :root {
-  font-family: "Inter var", sans-serif;
+  font-family: "Inter", sans-serif;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   font-variation-settings: normal;
-  --font-family: "Inter var", sans-serif;
+  --font-family: "Inter", sans-serif;
   --font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   --surface-a: #ffffff;
   --surface-b: #f1f1f3;
@@ -56,7 +56,6 @@
   --highlight-bg: #eef2ff;
   --highlight-text-color: #4338ca;
   color-scheme: light;
-
   /* Colores personalizados */
   --blue-50: rgb(245.2, 248.75, 254.55);
   --blue-100: rgb(207.96, 225, 252.84);
@@ -68,6 +67,7 @@
   --blue-700: rgb(41.3, 91, 172.2);
   --blue-800: rgb(32.45, 71.5, 135.3);
   --blue-900: rgb(23.6, 52, 98.4);
+
   --green-50: rgb(243.95, 252.1, 246.95);
   --green-100: rgb(201.96, 241.08, 216.36);
   --green-200: rgb(159.97, 230.06, 185.77);
@@ -179,36 +179,36 @@
   --primary-800: rgb(8.25, 28.6, 39.6);
   --primary-900: rgb(6, 20.8, 28.8);
   --degradate-color: linear-gradient(to right, #004a6d, #00abcb);
-}
 
-/* Estilos personalizados para botones y textos */
-.p-button {
-  background: #004a6d;
-  color: #ffffff;
-  border: none;
-  font-weight: 600;
-  font-size: 1rem;
-  padding: 0.75rem 1.5rem;
-  height: 40px;
-}
-.p-button:focus {
-  box-shadow: none !important;
-}
+  /* Estilos personalizados para botones y textos */
+  .p-button {
+    background: #004a6d;
+    color: #ffffff;
+    border: none;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    height: 40px;
+  }
+  .p-button:focus {
+    box-shadow: none !important;
+  }
 
-.text-blue-500 {
-  color: #004a6d !important;
-}
+  .text-blue-500 {
+    color: #004a6d !important;
+  }
 
-.text-red-500 {
-  color: #f5471d !important;
-}
+  .text-red-500 {
+    color: #f5471d !important;
+  }
 
-.text-yellow-500 {
-  color: #eab308 !important;
-}
-.text-orange-500 {
-  color: #fd7223 !important;
-}
-.border-blue-500 {
-  border-color: #004a6d !important;
+  .text-yellow-500 {
+    color: #eab308 !important;
+  }
+  .text-orange-500 {
+    color: #fd7223 !important;
+  }
+  .border-blue-500 {
+    border-color: #004a6d !important;
+  }
 }

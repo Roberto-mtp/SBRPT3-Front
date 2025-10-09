@@ -68,7 +68,7 @@ export class NavbarComponent implements OnInit {
   formatBreadcrumbLabel(segment: string): string {
     const labels: { [key: string]: string } = {
       'sbr-dashboard': 'Dashboard',
-      ataques: 'Ataques',
+      ataques: 'Anomalías',
     };
 
     return labels[segment] || segment.replace(/-/g, ' '); // Reemplaza '-' con espacios si no está en el diccionario
