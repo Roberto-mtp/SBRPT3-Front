@@ -27,12 +27,14 @@
         <ng-container *ngIf="item.route; else elseBlock">
           <a [routerLink]="item.route" class="p-menuitem-link text-blue-500">
             <span [ngClass]="[item.icon ? item.icon : '']"></span>
-            <span class="text-primary-900 font-semibold">{{ item.label }}</span>
+            <span class="text-blue-500 font-semibold text-xs">{{
+              item.label
+            }}</span>
           </a>
         </ng-container>
         <ng-template #elseBlock>
           <a [href]="item.url">
-            <span class="text-blue-500">{{ item.label }}</span>
+            <span class="text-color">{{ item.label }}</span>
           </a>
         </ng-template>
       </ng-template>
