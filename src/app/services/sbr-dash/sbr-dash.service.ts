@@ -24,4 +24,9 @@ export class SbrDashService {
     if (pred === 1) return 'Malicioso';
     return 'Desconocido';
   }
+
+  // WebSocket para datos en tiempo real
+  getRealtimeSocket(): WebSocket {
+    return new WebSocket('ws://127.0.0.1:8000/ws/detections');
+  }
 }

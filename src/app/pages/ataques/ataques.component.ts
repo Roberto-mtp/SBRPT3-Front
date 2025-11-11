@@ -94,23 +94,6 @@ export class AtaquesComponent implements OnInit {
 
             // aseguramos que this.details sea siempre un array
             this.details = Array.isArray(data) ? data : data.datos ?? [];
-
-            if (this.details.length > 0) {
-              this.tipoAtaque = this.details[0].tipo ?? '';
-              this.hora =
-                this.details[0].fecha_deteccion ?? this.details[0].timestamp;
-              this.datos = this.details;
-
-              // calcular secuencias aquí
-              this.secuenciaPaquetes = this.datos.length;
-
-              const tramos = new Set(
-                this.datos.map((d: any) => `${d.src_port}-${d.dst_port}`)
-              );
-              this.secuenciaTramos = tramos.size;
-
-              this.updatePaginatedData();
-            }
           });
       }
 
@@ -305,7 +288,7 @@ export class AtaquesComponent implements OnInit {
 
   private formatTimestamp(timestamp: string): string {
     const date = new Date(timestamp);
-    if (isNaN(date.getTime())) return timestamp; // fallback si no es válido
+    if (Number.isNaN(date.getTime())) return timestamp; // fallback si no es válido
     return date.toLocaleString('es-ES', {
       year: 'numeric',
       month: '2-digit',

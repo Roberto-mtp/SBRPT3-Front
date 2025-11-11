@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, effect, OnInit } from '@angular/core';
 import { SequencesComponent } from '../../shared/components/sequences/sequences.component';
 import { InfoSequencesService } from '../../services/sequences/info-sequences.service';
 import { AttackChartsComponent } from '../../shared/components/charts-attack/attack-charts/attack-charts.component';
@@ -8,7 +8,7 @@ import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
 import { BadgeModule } from 'primeng/badge';
 import { Router } from '@angular/router';
-import { SbrDashService } from '../../services/sbr-dash/sbr-dash.service';
+import { RealtimeService } from '../../services/realtime-service/realtime.service';
 
 interface Registro {
   ip: string;
@@ -33,46 +33,38 @@ interface Registro {
 })
 export class SbrDashboardComponent implements OnInit {
   ataques: Registro[] = [];
-  ruidos: Registro[] = [];
-
   data: { notifications: number } | null = null;
 
-  constructor(readonly router: Router, readonly sbrDashboard: SbrDashService) {}
+  totalNotificaciones = computed(() => {
+    const stats = this.realtime.stats();
+    return stats.malicioso;
+  });
 
-  ngOnInit(): void {
-    // Consumimos stats
-    this.sbrDashboard.getStats().subscribe((res) => {
-      console.log('Stats:', res);
-      this.ataques = res.by_prediction.map((x: any) => ({
-        ip: '—',
-        amenazas: x.count,
-      }));
-    });
+  constructor(readonly router: Router, readonly realtime: RealtimeService) {}
 
-    // Consumimos latest
-    this.sbrDashboard.getLatest().subscribe((res: any[]) => {
-      console.log('Últimos registros:', res);
-
-      const conteo: { [ip: string]: number } = {};
-      res.forEach((r) => {
-        const ip = r.src_ip || '—';
-        conteo[ip] = (conteo[ip] || 0) + 1;
-      });
-
-      this.ataques = Object.entries(conteo).map(([ip, amenazas]) => ({
-        ip,
-        amenazas,
-      }));
-      // 👇 total de anomalías detectadas
-      const totalNotificaciones = Object.values(conteo).reduce(
-        (acc, val) => acc + val,
-        0
-      );
-
-      // Pasamos el total al componente <app-sequences>
-      this.data = { notifications: totalNotificaciones };
-    });
+  ngOnInit() {
+    // Activa flujo de detecciones reales
+    this.realtime.data();
   }
+
+  readonly deteccionEffect = effect(() => {
+    const detecciones = this.realtime.data();
+
+    const conteo: Record<string, number> = {};
+
+    for (const d of detecciones) {
+      if (d.prediction === 1 && d.src_ip) {
+        conteo[d.src_ip] = (conteo[d.src_ip] || 0) + 1;
+      }
+    }
+
+    this.ataques = Object.entries(conteo).map(([ip, amenazas]) => ({
+      ip,
+      amenazas,
+    }));
+
+    this.data = { notifications: this.totalNotificaciones() };
+  });
 
   verAtaque() {
     this.router.navigate(['SecBluRed/ataques']);

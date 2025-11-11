@@ -17,10 +17,23 @@ export class AtaquesService {
     );
   }
 
-  getDetalleAtaque(ip: string): Observable<ResumenAtaque | undefined> {
-    // 🔹 Filtro en el frontend porque no hay endpoint específico
+  getDetalleAtaque(ip: string): Observable<ResumenAtaque[]> {
+    return this.http
+      .get<ResumenAtaque[]>(`${this.baseUrl}/latest?limit=200`) // aumentamos el límite
+      .pipe(
+        map((res) =>
+          res.filter(
+            (item) =>
+              item.src_ip?.trim() === ip.trim() ||
+              item.dst_ip?.trim() === ip.trim()
+          )
+        )
+      );
+  }
+
+  /* getDetalleAtaque(ip: string): Observable<ResumenAtaque | undefined> {
     return this.http
       .get<ResumenAtaque[]>(`${this.baseUrl}/latest?limit=50`)
       .pipe(map((res) => res.find((item) => item.src_ip === ip)));
-  }
+  } */
 }
